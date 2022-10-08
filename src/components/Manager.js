@@ -17,17 +17,27 @@ class Manager extends Component {
     });
   };
 
-  handleRemove = (task, id) => {
+  handleRemove = (id) => {
     this.setState({
-      task: this.state.tasks.filter(task),
+      tasks: this.state.tasks.filter((task) => {
+        return task.id !== id;
+      }),
     });
+  };
+
+  handleEdit = () => {
+    console.log("We made it");
   };
 
   render() {
     return (
       <div className="bg-green-300 w-1/2">
         <UserInput handleTasks={this.handleTasks}></UserInput>
-        <DisplayTasks tasks={this.state.tasks} />
+        <DisplayTasks
+          tasks={this.state.tasks}
+          handleRemove={this.handleRemove}
+          handleEdit={this.handleEdit}
+        />
       </div>
     );
   }

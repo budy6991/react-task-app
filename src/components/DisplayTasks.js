@@ -4,8 +4,15 @@ import TaskCard from "./TaskCard";
 function DisplayTasks(props) {
   const taskArray = props.tasks;
   const displayAll = taskArray.map((task) => {
-    console.log(task.name, task.id);
-    return <TaskCard task={task.name} key={task.id} />;
+    return (
+      <TaskCard
+        taskName={task.name}
+        key={task.id}
+        id={task.id}
+        handleRemove={props.handleRemove}
+        handleEdit={props.handleEdit}
+      />
+    );
   });
   return <div className="flex flex-col">{displayAll}</div>;
 }
