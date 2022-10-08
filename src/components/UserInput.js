@@ -16,8 +16,12 @@ class UserInput extends Component {
   };
 
   handleSubmit = (event) => {
+    let id = "id" + Math.random().toString(16).slice(2);
     event.preventDefault();
-    this.props.handleTasks(this.state.userInput);
+    this.props.handleTasks({
+      name: this.state.userInput,
+      id,
+    });
   };
 
   render() {
