@@ -25,8 +25,16 @@ class Manager extends Component {
     });
   };
 
-  handleEdit = () => {
-    console.log("We made it");
+  handleEdit = (input, id) => {
+    this.setState({
+      tasks: this.state.tasks.map((task) => {
+        if (task.id === id) {
+          task.name = input;
+        }
+        return task;
+      }),
+    });
+    console.log(this.state);
   };
 
   render() {

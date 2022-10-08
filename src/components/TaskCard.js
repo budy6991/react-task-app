@@ -1,14 +1,38 @@
-import React from "react";
+import { editableInputTypes } from "@testing-library/user-event/dist/utils";
+import React, { useState } from "react";
 
 function TaskCard({ taskName, id, handleRemove, handleEdit }) {
-  //When we click the edit button, isEditing becomes true, if isEditing is true, then we substitute the taskName, by an input, whose value we will move up to the manager to update the array.
+  const [editing, setEditing] = useState(null);
+  const [newInput, setNewInput] = useState(taskName);
+
+  const startEditing = () => {
+    setEditing(true);
+  };
+
+  const stopEditing = () => {
+    handleEdit(newInput, id);
+    setEditing(false);
+  };
+
+  const handleEditCard = (event) => {
+    setNewInput(event.target.value);
+  };
 
   return (
     <div className="bg-red-300 m-2">
-      {taskName}
-      <button className="bg-red-700" onClick={() => handleEdit()}>
-        Edit
-      </button>
+      {editing ? (
+        <input onChange={handleEditCard} value={newInput} />
+      ) : (
+        <div>{taskName}</div>
+      )}
+      {editing ? (
+        <button onClick={stopEditing}>Finish</button>
+      ) : (
+        <button className="bg-red-700" onClick={startEditing}>
+          Edit
+        </button>
+      )}
+
       <button className="bg-yellow-500" onClick={() => handleRemove(id)}>
         Remove
       </button>
